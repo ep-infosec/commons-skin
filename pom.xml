@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>54</version>
+  </parent>
+  <artifactId>commons-skin</artifactId>
+  <version>4.3-SNAPSHOT</version>
+  <name>Apache Commons Skin</name>
+  <description>Apache Commons Skin</description>
+  <inceptionYear>2006</inceptionYear>
+
+  <scm>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-skin</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-skin</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf/commons-skin</url>
+  </scm>
+
+  <properties>
+    <animal.sniffer.skip>true</animal.sniffer.skip>
+    <!-- To use the commons-release plugin -->
+    <commons.componentid>skin</commons.componentid>
+    <commons.release.isDistModule>true</commons.release.isDistModule>
+    <commons.bc.version>4.2</commons.bc.version>
+    <commons.rc.version>RC1</commons.rc.version>
+    <!-- No svn staging -->
+    <commons.distSvnStagingUrl></commons.distSvnStagingUrl>
+    <commons.releaseManagerName>Alex Herbert</commons.releaseManagerName>
+    <commons.releaseManagerKey>BC87A3FD0A54480F0BADBEBD21939FF0CA2A6567</commons.releaseManagerKey>
+  </properties>
+
+  <build>
+    <defaultGoal>clean verify</defaultGoal>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+      </resource>
+    </resources>
+
+    <plugins>
+      <!-- Configure assembly plugin so that mvn deploy works -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>src/main/assembly/src.xml</descriptor>
+          </descriptors>
+          <tarLongFileMode>gnu</tarLongFileMode>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludes combine.children="append">
+            <!-- https://jquery.org/license/ specifies this falls under the same licence as
+                 the containing project. -->
+            <exclude>src/main/resources/js/jquery.min.js</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
+</project>
